@@ -20,27 +20,39 @@ const displayMealData = tools => {
         universityDiv.classList.add('col');
         universityDiv.innerHTML = `
         <div class="card h-100">
-                    <img src="${tool.image}" class="card-img-top" alt="...">
+                    <img src="${tool.image}" class="card-img-top w-75 mx-auto m-4" alt="...">
                     <div class="card-body">
                     <h2>Features</h2>
-                    <ol>
-                    <li>
-                  ${tool.features}
-                    </li>     
-                </ol>
-                    
+                   <p>  ${tool.features} </p>
+                   
+                     <hr> 
                         <h5 class="card-title"> ${tool.name}</h5>
-                        <p class="card-text">${tool.description}</p>
+                        
+                       
+                        <p class="card-text mx-auto"> <i class="fa-solid fa-calendar-days"></i> ${tool.published_in}  <i class="fa-solid fa-arrow-right"></i></p>
+                        
                     </div>
-                    <button " type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mealModal">
+                    <button onclick="loadUniDetails(${tool.tool_name})" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#universityModal">
                     Details
-                    </button>
+                   </button>
 
+                   
         </div>
         
         `
         universityContainer.appendChild(universityDiv);
 
     })
+}
+const loadUniDetails = tool_name =>{
+   console.log(tool_name);
+    const url = `https://openapi.programming-hero.com/api/ai/tool/01`
+    console.log(url);
+    fetch(url)
+    .then(res => res.json())
+    .then (data =>  displayUniDetails(data.tool_name))
+}
+const displayUniDetails = tool_name => {
+    document.getElementById('universityModalLabel').innerText = tool_name;
 }
 universityDataLoad();
